@@ -1,0 +1,52 @@
+#+TITLE: Namespace, Vars, and Symbols (Oh, My!)
+#+AUTHOR: Craig Andera
+#+EMAIL: craig@thinkrelevance.com
+
+* Namespaces, Vars, and Symbols                                       :slide:
+
+I want to talk about the fact that the basic evaluation model in
+Clojure is something that even people that have been programming in
+Clojure don't necessarily understand very well. I know that I didn't
+quite "get it" for my first few years. 
+
+* General Idea                                                        :slide:
+
+The basic idea here is to do an analysis of this simple program:
+
+#+begin_src clojure
+  (ns hello
+    (:require [clojure.string :as str]))
+
+  (defn -main [& args]
+  (println "hello" (str/join " and " args)))
+#+end_src
+
+* What's Going On Here?                                               :slide:
+** Ultimately, a load of 'hello.clj'
+** But what really happens?
+** The *RE* of *REPL*
+
+* What is a namespace?                                                :slide:
+** A Java object
+
+#+TAGS: slide(s)
+
+#+STYLE: <link rel="stylesheet" type="text/css" href="common.css" />
+#+STYLE: <link rel="stylesheet" type="text/css" href="screen.css" media="screen" />
+#+STYLE: <link rel="stylesheet" type="text/css" href="projection.css" media="projection" />
+#+STYLE: <link rel="stylesheet" type="text/css" href="presenter.css" media="presenter" />
+
+#+BEGIN_HTML
+<script type="text/javascript" src="org-html-slides.js"></script>
+#+END_HTML
+
+# Local Variables:
+# org-export-html-style-include-default: nil
+# org-export-html-style-include-scripts: nil
+# End:
+
+
+
+* What is a symbol?                                                   :slide:
+
+* What is a var?                                                      :slide:
