@@ -1,8 +1,8 @@
-#+TITLE: Namespace, Vars, and Symbols (Oh, My!)
+#+TITLE: Namespaces, Vars, and Symbols (Oh, My!)
 #+AUTHOR: Craig Andera
 #+EMAIL: craig@thinkrelevance.com
 
-* Namespaces, Vars, and Symbols (Oh, My!)                       :title:slide:
+* Namespaces, Symbols, and Vars (Oh, My!)                       :title:slide:
 
 # Note: things using this comment syntax will not be exported
 
@@ -11,12 +11,45 @@
 # Clojure don't necessarily understand very well. I know that I didn't
 # quite "get it" for my first few years.
 
-** Intended Audience                                                  :slide:
-*** People who have been using Clojure a bit
-*** People who haven't written a book about it
-*** Anyone who remains confused about =(ns)= syntax
+# So what's the story? I think it might go something like: so you see
+# this piece of code? Pretty simple, right? Well, there are a few
+# things in here that give beginners trouble, like the namespace macro
+# and understanding vars and symbols. One way to understand a
+# technology is to write a version yourself. We don't have time to do
+# that in a 50 minute talk, but what we can do is to take a tour of
+# the concepts. When we're done, you should understand much better how
+# Clojure handles three very important concepts: namespaces, vars, and
+# symbols.
 
-** The Big Pile of Code
+# So we start by showing Hello World, and commenting that everyone
+# understands what the code does, but maybe not why. From there we
+# talk about how code gets loaded by require, and about the syntax of
+# require.
+
+# Once the code is loaded, it's read. So we can talk about read, and
+# how that turns characters into lists, strings, numbers, and symbols.
+# We can talk about the evaluation rules for everything except
+# symbols. To talk about those, we have to talk about what a symbol
+# is.
+
+# Symbols can have namespaces. So we talk about what a namespace is.
+# That leads to talking about what vars are. That leads us to talking
+# about refer, and - by extension - use. Then we can circle back
+# around to the evaluation rules for symbols. Then we come back to the
+# code again and we're done.
+
+** Slides
+*** Me                                                                :slide:
+**** Craig Andera
+**** @craigandera
+**** craig@thinkrelevance.com
+
+*** Intended Audience                                                 :slide:
+**** People who have been using Clojure a bit
+**** People who haven't written a book about it
+**** Anyone who remains confused about =(ns)= syntax
+
+*** The Big Pile of Code                                              :slide:
 
 # The basic idea here is to do an analysis of this simple program:
 
@@ -28,58 +61,85 @@
     (println "hello" (str/join " and " args)))
 #+end_src
 
-** What's Going On Here?                                              :slide:
-*** Ultimately, a load of 'hello.clj'
-*** But what really happens?
-*** The *RE* of *REPL*
+*** What's Going On Here?                                             :slide:
+**** A file gets loaded
+**** It is read
+**** It gets evaluated
 
-# TODO: Is there where we talk about reading and evaluation?
+*** Loading                                                           :slide:
+**** Primary API for this is =require=
+**** Takes a namespace name and finds a file on CLASSPATH
+**** Turns text in file into Clojure data structures
+**** Evaluates them
+**** Also lets you provide an alias
 
-** What is a Symbol?                                                  :slide:
-*** A name
-*** With an optional namespace
-*** Has no value
+*** Require                                                           :slide:
+#+begin_src clojure
+  ;; Load $CLASSPATH/net/cgrand/enlive_html.clj
+  (require 'net.cgrand.enlive-html)
 
-** What is a Namespace?                                               :slide:
-*** A mapping from symbols to
-**** Java classes
-**** Vars
+  ;; Load it and let us refer to it as html
+  (require '[net.cgrand.enlive-html :as html])
 
-# TODO: Is this where we talk about require?
+  ;; Still have to use namespaces
+  (net.cgrand.enlive-html/render ...)
+  (html/render ...)
+#+end_src
 
-** Viewing the Mappings                                               :slide:
-*** =ns-mappings=:
+*** Reading                                                           :slide:
 
-** What is a Var?                                                     :slide:
-*** A name and zero more values
-*** A var with zero values is /unbound/
-*** Usually has one value: the /root/ value
-*** Can have a per-thread value, too
-**** Via =binding=, iff marked =^:dynamic=
+# TODO: Put picture here that shows code turning into data structures.
+# Maybe the hello world code
 
-# TODO: Show code?
+*** Evaluation                                                        :slide:
+**** Many things in Clojure evaluate to themselves
+***** Maps, sets, vectors, strings, numbers
+**** Some things don't
+***** Lists => invocations
+***** Symbols => ??
 
-** Creating Vars                                                      :slide:
-*** =def= creates a new var in the current namespace
-*** Optionally associates a value
+*** What is a Symbol?                                                 :slide:
+**** A name
+**** With an optional namespace
+**** Has no value
 
+*** What is a Namespace?                                              :slide:
+**** A mapping from symbols to
+***** Java classes
+***** Vars
+**** Can view via =ns-mappings= and friends
+
+# TODO: Show code at this point
+
+*** What is a Var?                                                    :slide:
+**** An association between a name and a value
+**** COMMENT Name is a symbol without a namespace
+**** COMMENT A var with zero values is /unbound/
+**** COMMENT Usually has one value: the /root/ value
+**** COMMENT Can have a per-thread value, too
+***** COMMENT Via =binding=, iff marked =^:dynamic=
+**** Value is often a function
+**** =def= creates a new var in the current namespace
+**** Optionally associates a value
+
+*** Creating a Var                                                    :slide:
 #+begin_src clojure
   (ns some.name)
 
   ;; Var #'some.name/foo is unbound
   (def foo)
 
-  ;; Var #'some.name/bar has value 17
-  (def bar 17)
+  ;; Var #'some.name/bar has function value
+  (defn bar [x] (+ 2 x))
 #+end_src
 
-** Referring Vars                                                     :slide:
-*** Vars from other namespaces can be mapped in
-*** =refer= does this
-*** Can pull them in selectively via =:only= or =:exclude=
+*** Referring Vars                                               :fixnowrap:slide:
+**** Vars from other namespaces can be mapped in
+**** =refer= does this
+**** Can pull them in selectively via =:only= or =:exclude=
 
 #+begin_src clojure
-  ;; Refer all public symbols in net.cgrand.enlive-html
+  ;; Refer public symbols in net.cgrand.enlive-html
   (refer 'net.cgrand.enlive-html)
 
   ;; Refer only foo and bar
@@ -89,34 +149,51 @@
   (refer '[compojure.core :except (defroutes GET)])
 #+end_src
 
-** How are Symbols Evaluated?                                         :slide:
+*** How are Symbols Evaluated?                                   :fixnowrap:slide:
 
-*** Does it have a namespace?
-**** Resolve to the var in that namespace
-*** Does it look like =some.package.class=?
-**** Resolve to that Java class
-*** Symbol with no namespace
-**** Is it special form?
-***** Handled specially by the compiler
-**** Is it an imported Java class?
-***** Resolve to that class
-**** Is it a local binding?
-***** Resolve to that local
-**** Is it interned in the current namespace?
-***** Resolve to that var
+file:SymbolResolution.jpeg
+
+*** COMMENT How are Symbols Evaluated?                                :slide:
+**** Does it have a namespace?
+***** Resolve to the var in that namespace
+**** Does it look like =some.package.class=?
+***** Resolve to that Java class
+**** Symbol with no namespace
+***** Is it special form?
+****** Handled specially by the compiler
+***** Is it an imported Java class?
+****** Resolve to that class
+***** Is it a local binding?
+****** Resolve to that local
+***** Is it interned in the current namespace?
+****** Resolve to that var
 
 
-** Require?                                                           :slide:
+*** The Code Again                                                    :slide:
 
-Should I talk about =require=?
+# At this point we should come back to the original code and show that
+# we understand everything that's going on in it.
 
-** Refer?                                                             :slide:
+#+begin_src clojure
+  (ns hello
+    (:require [clojure.string :as str]))
 
-Should I talk about =refer=?
+  (defn -main [& args]
+    (println "hello" (str/join " and " args)))
+#+end_src
 
-** =ns=                                                               :slide:
+*** =ns=                                                              :slide:
 
-Should I talk about the =ns= macro?
+Now you can understand even the hairiest of =ns= expressions:
+
+#+begin_src clojure
+  (ns foo.bar
+    (:refer-clojure :exclude [ancestors printf])
+    (:require (clojure test test.junit))
+    (:use (my.lib this that))
+    (:import (java.util Date Timer Random)
+             java.sql.Connection))
+#+end_src
 
 #+TAGS: slide(s)
 
