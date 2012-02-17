@@ -2,32 +2,121 @@
 #+AUTHOR: Craig Andera
 #+EMAIL: craig@thinkrelevance.com
 
-* Namespaces, Vars, and Symbols                                       :slide:
+* Namespaces, Vars, and Symbols (Oh, My!)                       :title:slide:
 
-I want to talk about the fact that the basic evaluation model in
-Clojure is something that even people that have been programming in
-Clojure don't necessarily understand very well. I know that I didn't
-quite "get it" for my first few years. 
+# Note: things using this comment syntax will not be exported
 
-* General Idea                                                        :slide:
+# I want to talk about the fact that the basic evaluation model in
+# Clojure is something that even people that have been programming in
+# Clojure don't necessarily understand very well. I know that I didn't
+# quite "get it" for my first few years.
 
-The basic idea here is to do an analysis of this simple program:
+** Intended Audience                                                  :slide:
+*** People who have been using Clojure a bit
+*** People who haven't written a book about it
+*** Anyone who remains confused about =(ns)= syntax
+
+** The Big Pile of Code
+
+# The basic idea here is to do an analysis of this simple program:
 
 #+begin_src clojure
   (ns hello
     (:require [clojure.string :as str]))
 
   (defn -main [& args]
-  (println "hello" (str/join " and " args)))
+    (println "hello" (str/join " and " args)))
 #+end_src
 
-* What's Going On Here?                                               :slide:
-** Ultimately, a load of 'hello.clj'
-** But what really happens?
-** The *RE* of *REPL*
+** What's Going On Here?                                              :slide:
+*** Ultimately, a load of 'hello.clj'
+*** But what really happens?
+*** The *RE* of *REPL*
 
-* What is a namespace?                                                :slide:
-** A Java object
+# TODO: Is there where we talk about reading and evaluation?
+
+** What is a Symbol?                                                  :slide:
+*** A name
+*** With an optional namespace
+*** Has no value
+
+** What is a Namespace?                                               :slide:
+*** A mapping from symbols to
+**** Java classes
+**** Vars
+
+# TODO: Is this where we talk about require?
+
+** Viewing the Mappings                                               :slide:
+*** =ns-mappings=:
+
+** What is a Var?                                                     :slide:
+*** A name and zero more values
+*** A var with zero values is /unbound/
+*** Usually has one value: the /root/ value
+*** Can have a per-thread value, too
+**** Via =binding=, iff marked =^:dynamic=
+
+# TODO: Show code?
+
+** Creating Vars                                                      :slide:
+*** =def= creates a new var in the current namespace
+*** Optionally associates a value
+
+#+begin_src clojure
+  (ns some.name)
+
+  ;; Var #'some.name/foo is unbound
+  (def foo)
+
+  ;; Var #'some.name/bar has value 17
+  (def bar 17)
+#+end_src
+
+** Referring Vars                                                     :slide:
+*** Vars from other namespaces can be mapped in
+*** =refer= does this
+*** Can pull them in selectively via =:only= or =:exclude=
+
+#+begin_src clojure
+  ;; Refer all public symbols in net.cgrand.enlive-html
+  (refer 'net.cgrand.enlive-html)
+
+  ;; Refer only foo and bar
+  (refer '[blah.whatever :only (foo bar)])
+
+  ;; Refer everything except defroutes and GET
+  (refer '[compojure.core :except (defroutes GET)])
+#+end_src
+
+** How are Symbols Evaluated?                                         :slide:
+
+*** Does it have a namespace?
+**** Resolve to the var in that namespace
+*** Does it look like =some.package.class=?
+**** Resolve to that Java class
+*** Symbol with no namespace
+**** Is it special form?
+***** Handled specially by the compiler
+**** Is it an imported Java class?
+***** Resolve to that class
+**** Is it a local binding?
+***** Resolve to that local
+**** Is it interned in the current namespace?
+***** Resolve to that var
+
+
+** Require?                                                           :slide:
+
+Should I talk about =require=?
+
+** Refer?                                                             :slide:
+
+Should I talk about =refer=?
+
+** =ns=                                                               :slide:
+
+Should I talk about the =ns= macro?
 
 #+TAGS: slide(s)
 
@@ -35,6 +124,7 @@ The basic idea here is to do an analysis of this simple program:
 #+STYLE: <link rel="stylesheet" type="text/css" href="screen.css" media="screen" />
 #+STYLE: <link rel="stylesheet" type="text/css" href="projection.css" media="projection" />
 #+STYLE: <link rel="stylesheet" type="text/css" href="presenter.css" media="presenter" />
+#+STYLE: <link rel="stylesheet" type="text/css" href="local.css" />
 
 #+BEGIN_HTML
 <script type="text/javascript" src="org-html-slides.js"></script>
@@ -47,6 +137,3 @@ The basic idea here is to do an analysis of this simple program:
 
 
 
-* What is a symbol?                                                   :slide:
-
-* What is a var?                                                      :slide:
