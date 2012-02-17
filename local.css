@@ -6,7 +6,28 @@ body {
     color: white;
 }
 
-span.tag
-{
+span.tag {
     display: none
 }
+
+h4
+{padding-top: 4%;
+    padding-bottom: 2%
+}
+
+.src-clojure {
+    background: black;
+    color: white;
+    border: solid 2 white;
+}
+
+div.title h2 {
+    margin-top: 25%
+}
+
+/* Adjust for the fact that org-mode spews trailing &nbsp; entities in
+   places where they screw up the layout */
+.fixnowrap {
+    white-space: nowrap;
+}
+
