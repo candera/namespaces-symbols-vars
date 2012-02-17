@@ -1,0 +1,7 @@
+/* Stuff in here is meant to only affect this particular presentation.
+*/
+
+body {
+    background: black;
+    color: white;
+}
