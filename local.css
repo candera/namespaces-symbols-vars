@@ -5,3 +5,8 @@ body {
     background: black;
     color: white;
 }
+
+span.tag
+{
+    display: none
+}
