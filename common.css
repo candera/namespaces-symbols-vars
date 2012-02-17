@@ -2,7 +2,7 @@ body {
    font-family: Helvetica, Arial, sans-serif;
 }
 
-span.tag span.slide,span.fold {
+span.tag span.slide,span.fold,span.title {
    display: none;
 }
 
