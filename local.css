@@ -1,9 +1,13 @@
 /* Stuff in here is meant to only affect this particular presentation.
 */
+@import url(http://fonts.googleapis.com/css?family=Signika+Negative|Share|Noticia+Text);
 
 body {
     background: black;
     color: white;
+    font-family: 'Signika Negative' !important;
+    font-style: normal;
+    font-weight: 400;
 }
 
 span.tag {
