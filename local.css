@@ -4,10 +4,12 @@
 
 body {
     background: black;
+    background-image: -webkit-linear-gradient(top left, #363636 0%, #000000 100%);
     color: white;
     font-family: 'Signika Negative' !important;
     font-style: normal;
     font-weight: 400;
+    height: 768px;
 }
 
 span.tag {
@@ -33,5 +35,12 @@ div.title h2 {
    places where they screw up the layout */
 .fixnowrap {
     white-space: nowrap;
+}
+
+.src
+{
+    border: solid 2px white;
+    -webkit-border-radius: 8px;
+    padding: 9px 5px;
 }
 
