@@ -12,12 +12,22 @@ body {
     height: 768px;
 }
 
+li {
+    font-size: 125%
+}
+
+/* Without this nested bullets are bigger than their parents */
+li li {
+    font-size: 90%
+}
+
 span.tag {
     display: none
 }
 
 h4
-{padding-top: 4%;
+{
+    padding-top: 4%;
     padding-bottom: 2%
 }
 
@@ -27,7 +37,7 @@ h4
     border: solid 2 white;
 }
 
-div.title h2 {
+div.title h2, div.title h3, div.title h4 {
     margin-top: 25%
 }
 
@@ -41,6 +51,6 @@ div.title h2 {
 {
     border: solid 2px white;
     -webkit-border-radius: 8px;
-    padding: 9px 5px;
+    padding: 9px 15px 18px;
 }
 

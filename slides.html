@@ -7,7 +7,7 @@
 <meta http-equiv="Content-Type" content="text/html;charset=iso-8859-1"/>
 <meta name="title" content="Namespaces, Vars, and Symbols (Oh, My!)"/>
 <meta name="generator" content="Org-mode"/>
-<meta name="generated" content="2012-02-17 14:59:38 EST"/>
+<meta name="generated" content="2012-02-24 16:33:41 EST"/>
 <meta name="author" content="Craig Andera"/>
 <meta name="description" content=""/>
 <meta name="keywords" content=""/>
@@ -38,24 +38,37 @@
 <ul>
 <li><a href="#sec-1-1">1.1 Slides</a>
 <ul>
-<li><a href="#sec-1-1-1">1.1.1 Me</a></li>
-<li><a href="#sec-1-1-2">1.1.2 Intended Audience</a></li>
-<li><a href="#sec-1-1-3">1.1.3 The Big Pile of Code</a></li>
-<li><a href="#sec-1-1-4">1.1.4 What's Going On Here?</a></li>
-<li><a href="#sec-1-1-5">1.1.5 Loading</a></li>
-<li><a href="#sec-1-1-6">1.1.6 Require</a></li>
-<li><a href="#sec-1-1-7">1.1.7 Reading</a></li>
-<li><a href="#sec-1-1-8">1.1.8 Evaluation</a></li>
-<li><a href="#sec-1-1-9">1.1.9 What is a Symbol?</a></li>
-<li><a href="#sec-1-1-10">1.1.10 What is a Namespace?</a></li>
-<li><a href="#sec-1-1-11">1.1.11 What is a Var?</a></li>
-<li><a href="#sec-1-1-12">1.1.12 Creating Vars</a></li>
-<li><a href="#sec-1-1-13">1.1.13 Referring Vars</a></li>
-<li><a href="#sec-1-1-14">1.1.14 How are Symbols Evaluated?</a></li>
-<li><a href="#sec-1-1-15">1.1.15 The Code Again</a></li>
-<li><a href="#sec-1-1-16">1.1.16 <code>ns</code></a></li>
+<li><a href="#sec-1-1-1">1.1.1 But First, a Reaction to Rich's Keynote</a></li>
+<li><a href="#sec-1-1-2">1.1.2 Holy Shit!</a></li>
+<li><a href="#sec-1-1-3">1.1.3 Me</a></li>
+<li><a href="#sec-1-1-4">1.1.4 Intended Audience</a></li>
+<li><a href="#sec-1-1-5">1.1.5 The Big Pile of Code</a></li>
+<li><a href="#sec-1-1-6">1.1.6 What's Going On Here?</a></li>
+<li><a href="#sec-1-1-7">1.1.7 Loading</a></li>
+<li><a href="#sec-1-1-8">1.1.8 Require</a></li>
+<li><a href="#sec-1-1-9">1.1.9 Evaluation</a></li>
+<li><a href="#sec-1-1-10">1.1.10 What is a Symbol?</a></li>
+<li><a href="#sec-1-1-11">1.1.11 What is a Namespace?</a></li>
+<li><a href="#sec-1-1-12">1.1.12 What is a Var?</a></li>
+<li><a href="#sec-1-1-13">1.1.13 Creating a Var</a></li>
+<li><a href="#sec-1-1-14">1.1.14 Referring Vars</a></li>
+<li><a href="#sec-1-1-15">1.1.15 Referring Vars</a></li>
+<li><a href="#sec-1-1-16">1.1.16 Viewing Namespace Mappings</a></li>
+<li><a href="#sec-1-1-17">1.1.17 Viewing Namespace Mappings</a></li>
+<li><a href="#sec-1-1-18">1.1.18 How are Symbols Evaluated?</a></li>
+<li><a href="#sec-1-1-19">1.1.19 The Code Again</a></li>
+<li><a href="#sec-1-1-20">1.1.20 <code>ns</code></a></li>
+<li><a href="#sec-1-1-21">1.1.21 Using vars</a></li>
+<li><a href="#sec-1-1-22">1.1.22 Using vars</a></li>
+<li><a href="#sec-1-1-23">1.1.23 <code>resolve</code></a></li>
+<li><a href="#sec-1-1-24">1.1.24 Circular Dependencies</a></li>
+<li><a href="#sec-1-1-25">1.1.25 Circular Dependencies</a></li>
+</ul></li>
 </ul>
 </li>
+<li><a href="#sec-2">2 Fin</a>
+<ul>
+<li><a href="#sec-2-1">2.1 Notes</a></li>
 </ul>
 </li>
 </ul>
@@ -84,50 +97,66 @@
 </div>
 
 <div id="outline-container-1-1-1" class="outline-4">
-<h4 id="sec-1-1-1"><span class="section-number-4">1.1.1</span> Me &nbsp;&nbsp;&nbsp;<span class="tag"><span class="slide">slide</span></span></h4>
+<h4 id="sec-1-1-1"><span class="section-number-4">1.1.1</span> But First, a Reaction to Rich's Keynote &nbsp;&nbsp;&nbsp;<span class="tag"><span class="slide">slide</span>&nbsp;<span class="title">title</span></span></h4>
 <div class="outline-text-4" id="text-1-1-1">
 
-<ul>
-<li id="sec-1-1-1-1">Craig Andera<br/>
-</li>
-</ul>
-<ul>
-<li id="sec-1-1-1-2">@craigandera<br/>
-</li>
-</ul>
-<ul>
-<li id="sec-1-1-1-3">craig@thinkrelevance.com<br/>
-
-</li>
-</ul>
 </div>
 
 </div>
 
 <div id="outline-container-1-1-2" class="outline-4">
-<h4 id="sec-1-1-2"><span class="section-number-4">1.1.2</span> Intended Audience &nbsp;&nbsp;&nbsp;<span class="tag"><span class="slide">slide</span></span></h4>
+<h4 id="sec-1-1-2"><span class="section-number-4">1.1.2</span> Holy Shit! &nbsp;&nbsp;&nbsp;<span class="tag"><span class="title">title</span>&nbsp;<span class="slide">slide</span></span></h4>
 <div class="outline-text-4" id="text-1-1-2">
 
-<ul>
-<li id="sec-1-1-2-1">People who have been using Clojure a bit<br/>
-</li>
-</ul>
-<ul>
-<li id="sec-1-1-2-2">People who haven't written a book about it<br/>
-</li>
-</ul>
-<ul>
-<li id="sec-1-1-2-3">Anyone who remains confused about <code>(ns)</code> syntax<br/>
-
-</li>
-</ul>
 </div>
 
 </div>
 
 <div id="outline-container-1-1-3" class="outline-4">
-<h4 id="sec-1-1-3"><span class="section-number-4">1.1.3</span> The Big Pile of Code &nbsp;&nbsp;&nbsp;<span class="tag"><span class="slide">slide</span></span></h4>
+<h4 id="sec-1-1-3"><span class="section-number-4">1.1.3</span> Me &nbsp;&nbsp;&nbsp;<span class="tag"><span class="slide">slide</span></span></h4>
 <div class="outline-text-4" id="text-1-1-3">
+
+<ul>
+<li id="sec-1-1-3-1">Craig Andera<br/>
+</li>
+</ul>
+<ul>
+<li id="sec-1-1-3-2">@craigandera<br/>
+</li>
+</ul>
+<ul>
+<li id="sec-1-1-3-3">craig@thinkrelevance.com<br/>
+
+</li>
+</ul>
+</div>
+
+</div>
+
+<div id="outline-container-1-1-4" class="outline-4">
+<h4 id="sec-1-1-4"><span class="section-number-4">1.1.4</span> Intended Audience &nbsp;&nbsp;&nbsp;<span class="tag"><span class="slide">slide</span></span></h4>
+<div class="outline-text-4" id="text-1-1-4">
+
+<ul>
+<li id="sec-1-1-4-1">People who have been using Clojure a bit<br/>
+</li>
+</ul>
+<ul>
+<li id="sec-1-1-4-2">People who haven't written a book about it<br/>
+</li>
+</ul>
+<ul>
+<li id="sec-1-1-4-3">Anyone who remains confused about <code>(ns)</code> syntax<br/>
+
+</li>
+</ul>
+</div>
+
+</div>
+
+<div id="outline-container-1-1-5" class="outline-4">
+<h4 id="sec-1-1-5"><span class="section-number-4">1.1.5</span> The Big Pile of Code &nbsp;&nbsp;&nbsp;<span class="tag"><span class="slide">slide</span></span></h4>
+<div class="outline-text-4" id="text-1-1-5">
 
 
 
@@ -146,59 +175,60 @@
 
 </div>
 
-<div id="outline-container-1-1-4" class="outline-4">
-<h4 id="sec-1-1-4"><span class="section-number-4">1.1.4</span> What's Going On Here? &nbsp;&nbsp;&nbsp;<span class="tag"><span class="slide">slide</span></span></h4>
-<div class="outline-text-4" id="text-1-1-4">
-
-<ul>
-<li id="sec-1-1-4-1">A file gets loaded<br/>
-</li>
-</ul>
-<ul>
-<li id="sec-1-1-4-2">It is read<br/>
-</li>
-</ul>
-<ul>
-<li id="sec-1-1-4-3">It gets evaluated<br/>
-
-</li>
-</ul>
-</div>
-
-</div>
-
-<div id="outline-container-1-1-5" class="outline-4">
-<h4 id="sec-1-1-5"><span class="section-number-4">1.1.5</span> Loading &nbsp;&nbsp;&nbsp;<span class="tag"><span class="slide">slide</span></span></h4>
-<div class="outline-text-4" id="text-1-1-5">
-
-<ul>
-<li id="sec-1-1-5-1">Primary API for this is <code>require</code><br/>
-</li>
-</ul>
-<ul>
-<li id="sec-1-1-5-2">Takes a namespace name and finds a file on CLASSPATH<br/>
-</li>
-</ul>
-<ul>
-<li id="sec-1-1-5-3">Turns text in file into Clojure data structures<br/>
-</li>
-</ul>
-<ul>
-<li id="sec-1-1-5-4">Evaluates them<br/>
-</li>
-</ul>
-<ul>
-<li id="sec-1-1-5-5">Also lets you provide an alias<br/>
-
-</li>
-</ul>
-</div>
-
-</div>
-
 <div id="outline-container-1-1-6" class="outline-4">
-<h4 id="sec-1-1-6"><span class="section-number-4">1.1.6</span> Require &nbsp;&nbsp;&nbsp;<span class="tag"><span class="slide">slide</span></span></h4>
+<h4 id="sec-1-1-6"><span class="section-number-4">1.1.6</span> What's Going On Here? &nbsp;&nbsp;&nbsp;<span class="tag"><span class="slide">slide</span></span></h4>
 <div class="outline-text-4" id="text-1-1-6">
+
+<ul>
+<li id="sec-1-1-6-1">A file gets loaded<br/>
+</li>
+</ul>
+<ul>
+<li id="sec-1-1-6-2">It is read<br/>
+</li>
+</ul>
+<ul>
+<li id="sec-1-1-6-3">It gets evaluated<br/>
+
+</li>
+</ul>
+</div>
+
+</div>
+
+<div id="outline-container-1-1-7" class="outline-4">
+<h4 id="sec-1-1-7"><span class="section-number-4">1.1.7</span> Loading &nbsp;&nbsp;&nbsp;<span class="tag"><span class="slide">slide</span></span></h4>
+<div class="outline-text-4" id="text-1-1-7">
+
+<ul>
+<li id="sec-1-1-7-1">Primary API for this is <code>require</code><br/>
+</li>
+</ul>
+<ul>
+<li id="sec-1-1-7-2">Takes ns name and finds a file on CLASSPATH<br/>
+</li>
+</ul>
+<ul>
+<li id="sec-1-1-7-3">Turns text in file into Clojure data structures<br/>
+</li>
+</ul>
+<ul>
+<li id="sec-1-1-7-4">Evaluates them<br/>
+</li>
+</ul>
+<ul>
+<li id="sec-1-1-7-5">Also lets you provide an alias<br/>
+
+</li>
+</ul>
+</div>
+
+</div>
+
+<div id="outline-container-1-1-8" class="outline-4">
+<h4 id="sec-1-1-8"><span class="section-number-4">1.1.8</span> Require &nbsp;&nbsp;&nbsp;<span class="tag"><span class="slide">slide</span></span></h4>
+<div class="outline-text-4" id="text-1-1-8">
+
 
 
 
@@ -206,73 +236,48 @@
 <pre class="src src-clojure"><span style="color: #ff7f24;">;; </span><span style="color: #ff7f24;">Load $CLASSPATH/net/cgrand/enlive_html.clj</span>
 (<span style="color: #eedd82;">require</span> 'net.cgrand.enlive-html)
 
-<span style="color: #ff7f24;">;; </span><span style="color: #ff7f24;">Load it and let us refer to it as html</span>
-(<span style="color: #eedd82;">require</span> '[net.cgrand.enlive-html <span style="color: #7fffd4;">:as</span> html])
-
 <span style="color: #ff7f24;">;; </span><span style="color: #ff7f24;">Still have to use namespaces</span>
 (net.cgrand.enlive-html/render ...)
+</pre>
+
+
+
+<pre class="src src-clojure"><span style="color: #ff7f24;">;; </span><span style="color: #ff7f24;">Load it and let us refer to it as html</span>
+(<span style="color: #eedd82;">require</span> '[net.cgrand.enlive-html <span style="color: #7fffd4;">:as</span> html])
+
+<span style="color: #ff7f24;">;; </span><span style="color: #ff7f24;">Better, but still need namespace</span>
 (html/render ...)
 </pre>
 
 
-</div>
 
-</div>
-
-<div id="outline-container-1-1-7" class="outline-4">
-<h4 id="sec-1-1-7"><span class="section-number-4">1.1.7</span> Reading &nbsp;&nbsp;&nbsp;<span class="tag"><span class="slide">slide</span></span></h4>
-<div class="outline-text-4" id="text-1-1-7">
-
-
-
-</div>
-
-</div>
-
-<div id="outline-container-1-1-8" class="outline-4">
-<h4 id="sec-1-1-8"><span class="section-number-4">1.1.8</span> Evaluation &nbsp;&nbsp;&nbsp;<span class="tag"><span class="slide">slide</span></span></h4>
-<div class="outline-text-4" id="text-1-1-8">
-
-<ul>
-<li id="sec-1-1-8-1">Many things in Clojure evaluate to themselves<br/>
-<ul>
-<li id="sec-1-1-8-1-1">Maps, sets, vectors, strings, numbers<br/>
-</li>
-</ul>
-</li>
-</ul>
-<ul>
-<li id="sec-1-1-8-2">Some things don't<br/>
-<ul>
-<li id="sec-1-1-8-2-1">Lists =&gt; invocations<br/>
-</li>
-</ul>
-<ul>
-<li id="sec-1-1-8-2-2">Symbols =&gt; ??<br/>
-
-</li>
-</ul>
-</li>
-</ul>
 </div>
 
 </div>
 
 <div id="outline-container-1-1-9" class="outline-4">
-<h4 id="sec-1-1-9"><span class="section-number-4">1.1.9</span> What is a Symbol? &nbsp;&nbsp;&nbsp;<span class="tag"><span class="slide">slide</span></span></h4>
+<h4 id="sec-1-1-9"><span class="section-number-4">1.1.9</span> Evaluation &nbsp;&nbsp;&nbsp;<span class="tag"><span class="slide">slide</span></span></h4>
 <div class="outline-text-4" id="text-1-1-9">
 
 <ul>
-<li id="sec-1-1-9-1">A name<br/>
+<li id="sec-1-1-9-1">Many things in Clojure evaluate to themselves<br/>
+<ul>
+<li id="sec-1-1-9-1-1">Maps, sets, vectors, strings, numbers<br/>
+</li>
+</ul>
 </li>
 </ul>
 <ul>
-<li id="sec-1-1-9-2">With an optional namespace<br/>
+<li id="sec-1-1-9-2">Some things don't<br/>
+<ul>
+<li id="sec-1-1-9-2-1">Lists =&gt; invocations<br/>
 </li>
 </ul>
 <ul>
-<li id="sec-1-1-9-3">Has no value<br/>
+<li id="sec-1-1-9-2-2">Symbols =&gt; ??<br/>
 
+</li>
+</ul>
 </li>
 </ul>
 </div>
@@ -280,23 +285,26 @@
 </div>
 
 <div id="outline-container-1-1-10" class="outline-4">
-<h4 id="sec-1-1-10"><span class="section-number-4">1.1.10</span> What is a Namespace? &nbsp;&nbsp;&nbsp;<span class="tag"><span class="slide">slide</span></span></h4>
+<h4 id="sec-1-1-10"><span class="section-number-4">1.1.10</span> What is a Symbol? &nbsp;&nbsp;&nbsp;<span class="tag"><span class="slide">slide</span></span></h4>
 <div class="outline-text-4" id="text-1-1-10">
 
 <ul>
-<li id="sec-1-1-10-1">A mapping from symbols to<br/>
-<ul>
-<li id="sec-1-1-10-1-1">Java classes<br/>
+<li id="sec-1-1-10-1">A name<br/>
 </li>
 </ul>
 <ul>
-<li id="sec-1-1-10-1-2">Vars<br/>
-</li>
-</ul>
+<li id="sec-1-1-10-2">With an optional namespace<br/>
 </li>
 </ul>
 <ul>
-<li id="sec-1-1-10-2">Can view via <code>ns-mappings</code> and friends<br/>
+<li id="sec-1-1-10-3">Has no value<br/>
+
+
+
+
+<pre class="src src-clojure">foo       <span style="color: #ff7f24;">; </span><span style="color: #ff7f24;">Unqualified symbol</span>
+bar/foo   <span style="color: #ff7f24;">; </span><span style="color: #ff7f24;">Symbol with namespace</span>
+</pre>
 
 
 </li>
@@ -306,34 +314,21 @@
 </div>
 
 <div id="outline-container-1-1-11" class="outline-4">
-<h4 id="sec-1-1-11"><span class="section-number-4">1.1.11</span> What is a Var? &nbsp;&nbsp;&nbsp;<span class="tag"><span class="slide">slide</span></span></h4>
+<h4 id="sec-1-1-11"><span class="section-number-4">1.1.11</span> What is a Namespace? &nbsp;&nbsp;&nbsp;<span class="tag"><span class="slide">slide</span></span></h4>
 <div class="outline-text-4" id="text-1-1-11">
 
 <ul>
-<li id="sec-1-1-11-1">A name and zero more values<br/>
-
+<li id="sec-1-1-11-1">A mapping from symbols to<br/>
+<ul>
+<li id="sec-1-1-11-1-1">Java classes<br/>
 </li>
 </ul>
 <ul>
-<li id="sec-1-1-11-2">A var with zero values is <i>unbound</i><br/>
-</li>
-</ul>
-<ul>
-<li id="sec-1-1-11-3">Usually has one value: the <i>root</i> value<br/>
-</li>
-</ul>
-<ul>
-<li id="sec-1-1-11-4">Can have a per-thread value, too<br/>
-<ul>
-<li id="sec-1-1-11-4-1">Via <code>binding</code>, iff marked <code>^:dynamic</code><br/>
-</li>
-</ul>
-</li>
-</ul>
-<ul>
-<li id="sec-1-1-11-5">Value is often a function<br/>
+<li id="sec-1-1-11-1-2">Vars<br/>
 
 
+</li>
+</ul>
 </li>
 </ul>
 </div>
@@ -341,15 +336,37 @@
 </div>
 
 <div id="outline-container-1-1-12" class="outline-4">
-<h4 id="sec-1-1-12"><span class="section-number-4">1.1.12</span> Creating Vars &nbsp;&nbsp;&nbsp;<span class="tag"><span class="slide">slide</span></span></h4>
+<h4 id="sec-1-1-12"><span class="section-number-4">1.1.12</span> What is a Var? &nbsp;&nbsp;&nbsp;<span class="tag"><span class="slide">slide</span></span></h4>
 <div class="outline-text-4" id="text-1-1-12">
 
 <ul>
-<li id="sec-1-1-12-1"><code>def</code> creates a new var in the current namespace<br/>
+<li id="sec-1-1-12-1">An association between a name and a value<br/>
+
+
+
+
 </li>
 </ul>
 <ul>
-<li id="sec-1-1-12-2">Optionally associates a value<br/>
+<li id="sec-1-1-12-2">Value is often a function<br/>
+</li>
+</ul>
+<ul>
+<li id="sec-1-1-12-3"><code>def</code> creates a new var in the current namespace<br/>
+<ul>
+<li id="sec-1-1-12-3-1">Optionally associates a value<br/>
+
+</li>
+</ul>
+</li>
+</ul>
+</div>
+
+</div>
+
+<div id="outline-container-1-1-13" class="outline-4">
+<h4 id="sec-1-1-13"><span class="section-number-4">1.1.13</span> Creating a Var &nbsp;&nbsp;&nbsp;<span class="tag"><span class="slide">slide</span></span></h4>
+<div class="outline-text-4" id="text-1-1-13">
 
 
 
@@ -364,31 +381,39 @@
 </pre>
 
 
+</div>
+
+</div>
+
+<div id="outline-container-1-1-14" class="outline-4">
+<h4 id="sec-1-1-14"><span class="section-number-4">1.1.14</span> Referring Vars &nbsp;&nbsp;&nbsp;<span class="tag"><span class="fixnowrap">fixnowrap</span>&nbsp;<span class="slide">slide</span></span></h4>
+<div class="outline-text-4" id="text-1-1-14">
+
+<ul>
+<li id="sec-1-1-14-1">Vars from other namespaces can be mapped in<br/>
+</li>
+</ul>
+<ul>
+<li id="sec-1-1-14-2"><code>refer</code> does this<br/>
+</li>
+</ul>
+<ul>
+<li id="sec-1-1-14-3">Can pull them in selectively via <code>:only</code> or <code>:exclude</code><br/>
+
 </li>
 </ul>
 </div>
 
 </div>
 
-<div id="outline-container-1-1-13" class="outline-4">
-<h4 id="sec-1-1-13"><span class="section-number-4">1.1.13</span> Referring Vars &nbsp;&nbsp;&nbsp;<span class="tag"><span class="fixnowrap">fixnowrap</span>&nbsp;<span class="slide">slide</span></span></h4>
-<div class="outline-text-4" id="text-1-1-13">
-
-<ul>
-<li id="sec-1-1-13-1">Vars from other namespaces can be mapped in<br/>
-</li>
-</ul>
-<ul>
-<li id="sec-1-1-13-2"><code>refer</code> does this<br/>
-</li>
-</ul>
-<ul>
-<li id="sec-1-1-13-3">Can pull them in selectively via <code>:only</code> or <code>:exclude</code><br/>
+<div id="outline-container-1-1-15" class="outline-4">
+<h4 id="sec-1-1-15"><span class="section-number-4">1.1.15</span> Referring Vars &nbsp;&nbsp;&nbsp;<span class="tag"><span class="slide">slide</span></span></h4>
+<div class="outline-text-4" id="text-1-1-15">
 
 
 
 
-<pre class="src src-clojure"><span style="color: #ff7f24;">;; </span><span style="color: #ff7f24;">Refer public symbols in net.cgrand.enlive-html</span>
+<pre class="src src-clojure"><span style="color: #ff7f24;">;; </span><span style="color: #ff7f24;">Refer all public symbols</span>
 (<span style="color: #b0c4de;">refer</span> 'net.cgrand.enlive-html)
 
 <span style="color: #ff7f24;">;; </span><span style="color: #ff7f24;">Refer only foo and bar</span>
@@ -399,29 +424,99 @@
 </pre>
 
 
-</li>
-</ul>
 </div>
 
 </div>
 
-<div id="outline-container-1-1-14" class="outline-4">
-<h4 id="sec-1-1-14"><span class="section-number-4">1.1.14</span> How are Symbols Evaluated? &nbsp;&nbsp;&nbsp;<span class="tag"><span class="fixnowrap">fixnowrap</span>&nbsp;<span class="slide">slide</span></span></h4>
-<div class="outline-text-4" id="text-1-1-14">
+<div id="outline-container-1-1-16" class="outline-4">
+<h4 id="sec-1-1-16"><span class="section-number-4">1.1.16</span> Viewing Namespace Mappings &nbsp;&nbsp;&nbsp;<span class="tag"><span class="slide">slide</span></span></h4>
+<div class="outline-text-4" id="text-1-1-16">
+
+
+
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+<caption></caption>
+<colgroup><col class="left" /><col class="left" />
+</colgroup>
+<thead>
+<tr><th scope="col" class="left">Function</th><th scope="col" class="left">Description</th></tr>
+</thead>
+<tbody>
+<tr><td class="left">&nbsp; <code>ns-map</code></td><td class="left">Map of all symbols in NS</td></tr>
+<tr><td class="left">&nbsp; <code>ns-publics</code></td><td class="left">Map of symbols to public vars</td></tr>
+<tr><td class="left">&nbsp; <code>ns-imports</code></td><td class="left">Map of symbols to Java classes</td></tr>
+<tr><td class="left">&nbsp; <code>ns-interns</code></td><td class="left">Map of symbols to vars in this NS</td></tr>
+<tr><td class="left">&nbsp; <code>ns-aliases</code></td><td class="left">Map of prefixes to namespaces</td></tr>
+<tr><td class="left">&nbsp; <code>ns-refers</code></td><td class="left">Map of symbols to referred vars</td></tr>
+</tbody>
+</table>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-1-1-17" class="outline-4">
+<h4 id="sec-1-1-17"><span class="section-number-4">1.1.17</span> Viewing Namespace Mappings &nbsp;&nbsp;&nbsp;<span class="tag"><span class="slide">slide</span></span></h4>
+<div class="outline-text-4" id="text-1-1-17">
+
+
+
+
+
+<pre class="src src-clojure">(<span style="color: #eedd82;">ns-map</span> 'user)
+
+<span style="color: #ff7f24;">;; </span><span style="color: #ff7f24;">{sorted-map #'clojure.core/sorted-map,</span>
+<span style="color: #ff7f24;">;;  </span><span style="color: #ff7f24;">read-line #'clojure.core/read-line</span>
+<span style="color: #ff7f24;">;;  </span><span style="color: #ff7f24;">...}</span>
+</pre>
+
+
+
+<pre class="src src-clojure">(<span style="color: #eedd82;">ns-imports</span> 'user)
+
+<span style="color: #ff7f24;">;; </span><span style="color: #ff7f24;">{ProcessBuilder java.lang.ProcessBuilder,</span>
+<span style="color: #ff7f24;">;;  </span><span style="color: #ff7f24;">Enum java.lang.Enum,</span>
+<span style="color: #ff7f24;">;;  </span><span style="color: #ff7f24;">...}</span>
+</pre>
+
+
+
+</div>
+
+</div>
+
+<div id="outline-container-1-1-18" class="outline-4">
+<h4 id="sec-1-1-18"><span class="section-number-4">1.1.18</span> How are Symbols Evaluated? &nbsp;&nbsp;&nbsp;<span class="tag"><span class="fixnowrap">fixnowrap</span>&nbsp;<span class="slide">slide</span></span></h4>
+<div class="outline-text-4" id="text-1-1-18">
 
 
 <p>
-<img src="SymbolResolution.jpeg"  alt="SymbolResolution.jpeg" />
+<img src="SymbolResolution.png"  alt="SymbolResolution.png" />
 </p>
+<ul>
+<li>When symbol evaluates to var, var evaluates to value
+<ul>
+<li>This can make the code faster
+</li>
+<li>Not true for <code>^dynamic</code> vars
+</li>
+</ul>
+
+</li>
+</ul>
+
+
+
 
 
 </div>
 
 </div>
 
-<div id="outline-container-1-1-15" class="outline-4">
-<h4 id="sec-1-1-15"><span class="section-number-4">1.1.15</span> The Code Again &nbsp;&nbsp;&nbsp;<span class="tag"><span class="slide">slide</span></span></h4>
-<div class="outline-text-4" id="text-1-1-15">
+<div id="outline-container-1-1-19" class="outline-4">
+<h4 id="sec-1-1-19"><span class="section-number-4">1.1.19</span> The Code Again &nbsp;&nbsp;&nbsp;<span class="tag"><span class="slide">slide</span></span></h4>
+<div class="outline-text-4" id="text-1-1-19">
 
 
 
@@ -440,14 +535,11 @@
 
 </div>
 
-<div id="outline-container-1-1-16" class="outline-4">
-<h4 id="sec-1-1-16"><span class="section-number-4">1.1.16</span> <code>ns</code> &nbsp;&nbsp;&nbsp;<span class="tag"><span class="slide">slide</span></span></h4>
-<div class="outline-text-4" id="text-1-1-16">
+<div id="outline-container-1-1-20" class="outline-4">
+<h4 id="sec-1-1-20"><span class="section-number-4">1.1.20</span> <code>ns</code> &nbsp;&nbsp;&nbsp;<span class="tag"><span class="slide">slide</span></span></h4>
+<div class="outline-text-4" id="text-1-1-20">
 
 
-<p>
-Now you can understand even the hairiest of <code>ns</code> expressions:
-</p>
 
 
 
@@ -461,20 +553,192 @@ Now you can understand even the hairiest of <code>ns</code> expressions:
 
 
 
+</div>
+
+</div>
+
+<div id="outline-container-1-1-21" class="outline-4">
+<h4 id="sec-1-1-21"><span class="section-number-4">1.1.21</span> Using vars &nbsp;&nbsp;&nbsp;<span class="tag"><span class="slide">slide</span></span></h4>
+<div class="outline-text-4" id="text-1-1-21">
+
+
+<ul>
+<li>Passing function by name passes function object
+</li>
+<li>If you want to change it later, you're out of luck
+</li>
+<li>Can pass the var instead
+</li>
+<li>Use <code>var</code> to do this
+</li>
+<li>Can also use var-quote #'
+</li>
+</ul>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-1-1-22" class="outline-4">
+<h4 id="sec-1-1-22"><span class="section-number-4">1.1.22</span> Using vars &nbsp;&nbsp;&nbsp;<span class="tag"><span class="slide">slide</span></span></h4>
+<div class="outline-text-4" id="text-1-1-22">
+
+
+
+
+<pre class="src src-clojure">(<span style="color: #b0c4de;">ns</span> hello-world
+  (<span style="color: #7fffd4;">:use</span> compojure.core, ring.adapter.jetty))
+
+(defroutes main-routes ...)
+
+<span style="color: #ff7f24;">;; </span><span style="color: #ff7f24;">Can't update routes dynamically</span>
+(run-jetty main-routes {<span style="color: #7fffd4;">:port</span> 8080})
+
+<span style="color: #ff7f24;">;; </span><span style="color: #ff7f24;">Unless we do this</span>
+(run-jetty (var main-routes) {<span style="color: #7fffd4;">:port</span> 8080})
+
+<span style="color: #ff7f24;">;; </span><span style="color: #ff7f24;">Which is the same as this</span>
+(run-jetty #'main-routes {<span style="color: #7fffd4;">:port</span> 8080})
+</pre>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-1-1-23" class="outline-4">
+<h4 id="sec-1-1-23"><span class="section-number-4">1.1.23</span> <code>resolve</code> &nbsp;&nbsp;&nbsp;<span class="tag"><span class="slide">slide</span></span></h4>
+<div class="outline-text-4" id="text-1-1-23">
+
+
+<ul>
+<li>You can look up vars at runtime with <code>resolve</code>
+</li>
+<li>Handy for resolving circular dependencies
+<ul>
+<li>Usually better to refactor code instead
+</li>
+</ul>
+
+</li>
+</ul>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-1-1-24" class="outline-4">
+<h4 id="sec-1-1-24"><span class="section-number-4">1.1.24</span> Circular Dependencies &nbsp;&nbsp;&nbsp;<span class="tag"><span class="fixnowrap">fixnowrap</span>&nbsp;<span class="slide">slide</span></span></h4>
+<div class="outline-text-4" id="text-1-1-24">
+
+
+
+
+
+<pre class="src src-clojure"><span style="color: #ff7f24;">;; </span><span style="color: #ff7f24;">This won't work</span>
+(<span style="color: #b0c4de;">ns</span> one
+  (<span style="color: #7fffd4;">:require</span> two))
+
+(<span style="color: #b0c4de;">ns</span> two
+  (<span style="color: #7fffd4;">:require</span> one))
+</pre>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-1-1-25" class="outline-4">
+<h4 id="sec-1-1-25"><span class="section-number-4">1.1.25</span> Circular Dependencies &nbsp;&nbsp;&nbsp;<span class="tag"><span class="fixnowrap">fixnowrap</span>&nbsp;<span class="slide">slide</span></span></h4>
+<div class="outline-text-4" id="text-1-1-25">
+
+
+
+
+
+<pre class="src src-clojure">(<span style="color: #b0c4de;">ns</span> one)
+
+(<span style="color: #00ffff;">defn</span> <span style="color: #87cefa;">a</span> []
+  (<span style="color: #eedd82;">require</span> 'two)
+  ((<span style="color: #eedd82;">resolve</span> 'two/b)))
+</pre>
+
+
+
+<pre class="src src-clojure">(<span style="color: #b0c4de;">ns</span> two (<span style="color: #7fffd4;">:require</span> one))
+
+(<span style="color: #00ffff;">defn</span> <span style="color: #87cefa;">b</span> [] <span style="color: #ffa07a;">"It worked!"</span>)
+
+(<span style="color: #00ffff;">defn</span> <span style="color: #87cefa;">c</span> [] (one/a))
+</pre>
+
+
+</div>
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-2" class="outline-2">
+<h2 id="sec-2"><span class="section-number-2">2</span> Fin &nbsp;&nbsp;&nbsp;<span class="tag"><span class="title">title</span>&nbsp;<span class="slide">slide</span></span></h2>
+<div class="outline-text-2" id="text-2">
+
+
+
+
+
 
 <script type="text/javascript" src="org-html-slides.js"></script>
 
 
 
 
+
 </div>
+
+<div id="outline-container-2-1" class="outline-3">
+<h3 id="sec-2-1"><span class="section-number-3">2.1</span> Notes</h3>
+<div class="outline-text-3" id="text-2-1">
+
+<ul>
+<li id="sec-2-1-1">Should do more detail on the namespace mappings<br/>
+</li>
+</ul>
+<ul>
+<li id="sec-2-1-2">What's the motivation for people with a bit more experience?<br/>
+<ul>
+<li>Could talk more about how to use vars directly
+<ul>
+<li>E.g. In compojure when you pass the var rather than the symbol
+</li>
+</ul>
+
+</li>
+<li>Two things that nobody understands
+<ul>
+<li>The compojure trick
+</li>
+<li>Crufting up a var to work around cyclic dependencies
+</li>
+</ul>
+
+</li>
+</ul>
+
+
+<p>
+((var ns name) blah)
+</p></li>
+</ul>
 </div>
 </div>
 </div>
 </div>
 
 <div id="postamble">
-<p class="date">Date: 2012-02-17 14:59:38 EST</p>
+<p class="date">Date: 2012-02-24 16:33:41 EST</p>
 <p class="author">Author: Craig Andera</p>
 <p class="creator">Org version 7.8.03 with Emacs version 23</p>
 <a href="http://validator.w3.org/check?uri=referer">Validate XHTML 1.0</a>

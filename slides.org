@@ -39,6 +39,8 @@
 # code again and we're done.
 
 ** Slides
+*** But First, a Reaction to Rich's Keynote                     :slide:title:
+*** Holy Shit!                                                  :title:slide:
 *** Me                                                                :slide:
 **** Craig Andera
 **** @craigandera
@@ -68,28 +70,29 @@
 
 *** Loading                                                           :slide:
 **** Primary API for this is =require=
-**** Takes a namespace name and finds a file on CLASSPATH
+**** Takes ns name and finds a file on CLASSPATH
 **** Turns text in file into Clojure data structures
 **** Evaluates them
 **** Also lets you provide an alias
 
 *** Require                                                           :slide:
+
 #+begin_src clojure
   ;; Load $CLASSPATH/net/cgrand/enlive_html.clj
   (require 'net.cgrand.enlive-html)
 
+  ;; Still have to use namespaces
+  (net.cgrand.enlive-html/render ...)
+#+end_src
+
+#+begin_src clojure
   ;; Load it and let us refer to it as html
   (require '[net.cgrand.enlive-html :as html])
 
-  ;; Still have to use namespaces
-  (net.cgrand.enlive-html/render ...)
+  ;; Better, but still need namespace
   (html/render ...)
 #+end_src
 
-*** Reading                                                           :slide:
-
-# TODO: Put picture here that shows code turning into data structures.
-# Maybe the hello world code
 
 *** Evaluation                                                        :slide:
 **** Many things in Clojure evaluate to themselves
@@ -103,11 +106,15 @@
 **** With an optional namespace
 **** Has no value
 
+#+begin_src clojure
+  foo       ; Unqualified symbol
+  bar/foo   ; Symbol with namespace
+#+end_src
+
 *** What is a Namespace?                                              :slide:
 **** A mapping from symbols to
 ***** Java classes
 ***** Vars
-**** Can view via =ns-mappings= and friends
 
 # TODO: Show code at this point
 
@@ -120,7 +127,7 @@
 ***** COMMENT Via =binding=, iff marked =^:dynamic=
 **** Value is often a function
 **** =def= creates a new var in the current namespace
-**** Optionally associates a value
+***** Optionally associates a value
 
 *** Creating a Var                                                    :slide:
 #+begin_src clojure
@@ -133,13 +140,14 @@
   (defn bar [x] (+ 2 x))
 #+end_src
 
-*** Referring Vars                                               :fixnowrap:slide:
+*** Referring Vars                                          :fixnowrap:slide:
 **** Vars from other namespaces can be mapped in
 **** =refer= does this
 **** Can pull them in selectively via =:only= or =:exclude=
 
+*** Referring Vars                                                    :slide:
 #+begin_src clojure
-  ;; Refer public symbols in net.cgrand.enlive-html
+  ;; Refer all public symbols
   (refer 'net.cgrand.enlive-html)
 
   ;; Refer only foo and bar
@@ -149,9 +157,58 @@
   (refer '[compojure.core :except (defroutes GET)])
 #+end_src
 
-*** How are Symbols Evaluated?                                   :fixnowrap:slide:
+*** Viewing Namespace Mappings                                        :slide:
 
-file:SymbolResolution.jpeg
+# The \nbsp in the table entries is to prevent org-mode from treating
+# the equals sign as indicating a spreadsheet calculation.
+
+| Function           | Description                       |
+|--------------------+-----------------------------------|
+| \nbsp =ns-map=     | Map of all symbols in NS          |
+| \nbsp =ns-publics= | Map of symbols to public vars     |
+| \nbsp =ns-imports= | Map of symbols to Java classes    |
+| \nbsp =ns-interns= | Map of symbols to vars in this NS |
+| \nbsp =ns-aliases= | Map of prefixes to namespaces     |
+| \nbsp =ns-refers=  | Map of symbols to referred vars   |
+
+*** Viewing Namespace Mappings                                        :slide:
+
+#+begin_src clojure
+  (ns-map 'user)
+
+  ;; {sorted-map #'clojure.core/sorted-map,
+  ;;  read-line #'clojure.core/read-line
+  ;;  ...}
+#+end_src
+
+#+begin_src clojure
+  (ns-imports 'user)
+
+  ;; {ProcessBuilder java.lang.ProcessBuilder,
+  ;;  Enum java.lang.Enum,
+  ;;  ...}
+#+end_src
+
+
+*** How are Symbols Evaluated?                              :fixnowrap:slide:
+
+file:SymbolResolution.png
+
+- When symbol evaluates to var, var evaluates to value
+  - This can make the code faster
+  - Not true for =^dynamic= vars
+
+# Question: how do you tell the difference between a.b/c being a
+# namespace-qualified symbol referencing a var and a static method
+# invocation on a Java class?
+#
+# Answer: I spent some time digging down on this, and the answer is
+# that the compiler handles it somehow. You can define a namespace
+# like Integer, and intern a var parseInt in it, and if you refer the
+# namespace, you can use Integer/parseInt to call it - the Java method
+# is shadowed. However, you can't define a Clojure namespace called
+# java.lang.Integer - it's explicitly disallowed. Further, when I
+# tried it, doing so horked up the REPL so badly I had to kill it.
 
 *** COMMENT How are Symbols Evaluated?                                :slide:
 **** Does it have a namespace?
@@ -184,8 +241,6 @@ file:SymbolResolution.jpeg
 
 *** =ns=                                                              :slide:
 
-Now you can understand even the hairiest of =ns= expressions:
-
 #+begin_src clojure
   (ns foo.bar
     (:refer-clojure :exclude [ancestors printf])
@@ -194,6 +249,69 @@ Now you can understand even the hairiest of =ns= expressions:
     (:import (java.util Date Timer Random)
              java.sql.Connection))
 #+end_src
+
+
+*** Using vars                                                        :slide:
+
+- Passing function by name passes function object
+- If you want to change it later, you're out of luck
+- Can pass the var instead
+- Use =var= to do this
+- Can also use var-quote #'
+
+*** Using vars                                                        :slide:
+#+begin_src clojure
+  (ns hello-world
+    (:use compojure.core, ring.adapter.jetty))
+
+  (defroutes main-routes ...)
+
+  ;; Can't update routes dynamically
+  (run-jetty main-routes {:port 8080})
+
+  ;; Unless we do this
+  (run-jetty (var main-routes) {:port 8080})
+
+  ;; Which is the same as this
+  (run-jetty #'main-routes {:port 8080})
+#+end_src
+
+*** =resolve=                                                         :slide:
+
+- You can look up vars at runtime with =resolve=
+- Handy for resolving circular dependencies
+  - Usually better to refactor code instead
+
+*** Circular Dependencies                                   :fixnowrap:slide:
+
+#+begin_src clojure
+  ;; This won't work
+  (ns one
+    (:require two))
+
+  (ns two
+    (:require one))
+#+end_src
+
+*** Circular Dependencies                                   :fixnowrap:slide:
+
+#+begin_src clojure
+  (ns one)
+
+  (defn a []
+    (require 'two)
+    ((resolve 'two/b)))
+#+end_src
+
+#+begin_src clojure
+  (ns two (:require one))
+
+  (defn b [] "It worked!")
+
+  (defn c [] (one/a))
+#+end_src
+
+* Fin                                                           :title:slide:
 
 #+TAGS: slide(s)
 
@@ -214,3 +332,13 @@ Now you can understand even the hairiest of =ns= expressions:
 
 
 
+** Notes
+**** Should do more detail on the namespace mappings
+**** What's the motivation for people with a bit more experience?
+- Could talk more about how to use vars directly
+  - E.g. In compojure when you pass the var rather than the symbol
+- Two things that nobody understands
+  - The compojure trick
+  - Crufting up a var to work around cyclic dependencies
+
+((var ns name) blah)
