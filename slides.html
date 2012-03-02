@@ -7,7 +7,7 @@
 <meta http-equiv="Content-Type" content="text/html;charset=iso-8859-1"/>
 <meta name="title" content="Namespaces, Vars, and Symbols (Oh, My!)"/>
 <meta name="generator" content="Org-mode"/>
-<meta name="generated" content="2012-02-24 16:33:41 EST"/>
+<meta name="generated" content="2012-03-02 10:30:04 EST"/>
 <meta name="author" content="Craig Andera"/>
 <meta name="description" content=""/>
 <meta name="keywords" content=""/>
@@ -58,17 +58,21 @@
 <li><a href="#sec-1-1-18">1.1.18 How are Symbols Evaluated?</a></li>
 <li><a href="#sec-1-1-19">1.1.19 The Code Again</a></li>
 <li><a href="#sec-1-1-20">1.1.20 <code>ns</code></a></li>
-<li><a href="#sec-1-1-21">1.1.21 Using vars</a></li>
-<li><a href="#sec-1-1-22">1.1.22 Using vars</a></li>
-<li><a href="#sec-1-1-23">1.1.23 <code>resolve</code></a></li>
-<li><a href="#sec-1-1-24">1.1.24 Circular Dependencies</a></li>
-<li><a href="#sec-1-1-25">1.1.25 Circular Dependencies</a></li>
 </ul></li>
 </ul>
 </li>
 <li><a href="#sec-2">2 Fin</a>
 <ul>
-<li><a href="#sec-2-1">2.1 Notes</a></li>
+<li><a href="#sec-2-1">2.1 Bonus Material</a>
+<ul>
+<li><a href="#sec-2-1-1">2.1.1 Using vars</a></li>
+<li><a href="#sec-2-1-2">2.1.2 Using vars</a></li>
+<li><a href="#sec-2-1-3">2.1.3 <code>resolve</code></a></li>
+<li><a href="#sec-2-1-4">2.1.4 Circular Dependencies</a></li>
+<li><a href="#sec-2-1-5">2.1.5 Circular Dependencies</a></li>
+</ul>
+</li>
+<li><a href="#sec-2-2">2.2 Notes</a></li>
 </ul>
 </li>
 </ul>
@@ -184,11 +188,7 @@
 </li>
 </ul>
 <ul>
-<li id="sec-1-1-6-2">It is read<br/>
-</li>
-</ul>
-<ul>
-<li id="sec-1-1-6-3">It gets evaluated<br/>
+<li id="sec-1-1-6-2">It gets evaluated<br/>
 
 </li>
 </ul>
@@ -325,6 +325,10 @@ bar/foo   <span style="color: #ff7f24;">; </span><span style="color: #ff7f24;">S
 </ul>
 <ul>
 <li id="sec-1-1-11-1-2">Vars<br/>
+</li>
+</ul>
+<ul>
+<li id="sec-1-1-11-1-3">Aliases<br/>
 
 
 </li>
@@ -442,11 +446,11 @@ bar/foo   <span style="color: #ff7f24;">; </span><span style="color: #ff7f24;">S
 <tr><th scope="col" class="left">Function</th><th scope="col" class="left">Description</th></tr>
 </thead>
 <tbody>
-<tr><td class="left">&nbsp; <code>ns-map</code></td><td class="left">Map of all symbols in NS</td></tr>
+<tr><td class="left">&nbsp; <code>ns-map</code></td><td class="left">Map of all vars and classes in NS</td></tr>
 <tr><td class="left">&nbsp; <code>ns-publics</code></td><td class="left">Map of symbols to public vars</td></tr>
 <tr><td class="left">&nbsp; <code>ns-imports</code></td><td class="left">Map of symbols to Java classes</td></tr>
-<tr><td class="left">&nbsp; <code>ns-interns</code></td><td class="left">Map of symbols to vars in this NS</td></tr>
-<tr><td class="left">&nbsp; <code>ns-aliases</code></td><td class="left">Map of prefixes to namespaces</td></tr>
+<tr><td class="left">&nbsp; <code>ns-interns</code></td><td class="left">Map of symbols to this NS's vars</td></tr>
+<tr><td class="left">&nbsp; <code>ns-aliases</code></td><td class="left">Map of aliases to namespaces</td></tr>
 <tr><td class="left">&nbsp; <code>ns-refers</code></td><td class="left">Map of symbols to referred vars</td></tr>
 </tbody>
 </table>
@@ -499,8 +503,6 @@ bar/foo   <span style="color: #ff7f24;">; </span><span style="color: #ff7f24;">S
 <ul>
 <li>This can make the code faster
 </li>
-<li>Not true for <code>^dynamic</code> vars
-</li>
 </ul>
 
 </li>
@@ -552,14 +554,31 @@ bar/foo   <span style="color: #ff7f24;">; </span><span style="color: #ff7f24;">S
 </pre>
 
 
-
+</div>
+</div>
 </div>
 
 </div>
 
-<div id="outline-container-1-1-21" class="outline-4">
-<h4 id="sec-1-1-21"><span class="section-number-4">1.1.21</span> Using vars &nbsp;&nbsp;&nbsp;<span class="tag"><span class="slide">slide</span></span></h4>
-<div class="outline-text-4" id="text-1-1-21">
+<div id="outline-container-2" class="outline-2">
+<h2 id="sec-2"><span class="section-number-2">2</span> Fin &nbsp;&nbsp;&nbsp;<span class="tag"><span class="title">title</span>&nbsp;<span class="slide">slide</span></span></h2>
+<div class="outline-text-2" id="text-2">
+
+
+
+</div>
+
+<div id="outline-container-2-1" class="outline-3">
+<h3 id="sec-2-1"><span class="section-number-3">2.1</span> Bonus Material &nbsp;&nbsp;&nbsp;<span class="tag"><span class="title">title</span>&nbsp;<span class="slide">slide</span></span></h3>
+<div class="outline-text-3" id="text-2-1">
+
+
+
+</div>
+
+<div id="outline-container-2-1-1" class="outline-4">
+<h4 id="sec-2-1-1"><span class="section-number-4">2.1.1</span> Using vars &nbsp;&nbsp;&nbsp;<span class="tag"><span class="slide">slide</span></span></h4>
+<div class="outline-text-4" id="text-2-1-1">
 
 
 <ul>
@@ -580,9 +599,9 @@ bar/foo   <span style="color: #ff7f24;">; </span><span style="color: #ff7f24;">S
 
 </div>
 
-<div id="outline-container-1-1-22" class="outline-4">
-<h4 id="sec-1-1-22"><span class="section-number-4">1.1.22</span> Using vars &nbsp;&nbsp;&nbsp;<span class="tag"><span class="slide">slide</span></span></h4>
-<div class="outline-text-4" id="text-1-1-22">
+<div id="outline-container-2-1-2" class="outline-4">
+<h4 id="sec-2-1-2"><span class="section-number-4">2.1.2</span> Using vars &nbsp;&nbsp;&nbsp;<span class="tag"><span class="slide">slide</span></span></h4>
+<div class="outline-text-4" id="text-2-1-2">
 
 
 
@@ -607,9 +626,9 @@ bar/foo   <span style="color: #ff7f24;">; </span><span style="color: #ff7f24;">S
 
 </div>
 
-<div id="outline-container-1-1-23" class="outline-4">
-<h4 id="sec-1-1-23"><span class="section-number-4">1.1.23</span> <code>resolve</code> &nbsp;&nbsp;&nbsp;<span class="tag"><span class="slide">slide</span></span></h4>
-<div class="outline-text-4" id="text-1-1-23">
+<div id="outline-container-2-1-3" class="outline-4">
+<h4 id="sec-2-1-3"><span class="section-number-4">2.1.3</span> <code>resolve</code> &nbsp;&nbsp;&nbsp;<span class="tag"><span class="slide">slide</span></span></h4>
+<div class="outline-text-4" id="text-2-1-3">
 
 
 <ul>
@@ -629,9 +648,9 @@ bar/foo   <span style="color: #ff7f24;">; </span><span style="color: #ff7f24;">S
 
 </div>
 
-<div id="outline-container-1-1-24" class="outline-4">
-<h4 id="sec-1-1-24"><span class="section-number-4">1.1.24</span> Circular Dependencies &nbsp;&nbsp;&nbsp;<span class="tag"><span class="fixnowrap">fixnowrap</span>&nbsp;<span class="slide">slide</span></span></h4>
-<div class="outline-text-4" id="text-1-1-24">
+<div id="outline-container-2-1-4" class="outline-4">
+<h4 id="sec-2-1-4"><span class="section-number-4">2.1.4</span> Circular Dependencies &nbsp;&nbsp;&nbsp;<span class="tag"><span class="fixnowrap">fixnowrap</span>&nbsp;<span class="slide">slide</span></span></h4>
+<div class="outline-text-4" id="text-2-1-4">
 
 
 
@@ -650,9 +669,9 @@ bar/foo   <span style="color: #ff7f24;">; </span><span style="color: #ff7f24;">S
 
 </div>
 
-<div id="outline-container-1-1-25" class="outline-4">
-<h4 id="sec-1-1-25"><span class="section-number-4">1.1.25</span> Circular Dependencies &nbsp;&nbsp;&nbsp;<span class="tag"><span class="fixnowrap">fixnowrap</span>&nbsp;<span class="slide">slide</span></span></h4>
-<div class="outline-text-4" id="text-1-1-25">
+<div id="outline-container-2-1-5" class="outline-4">
+<h4 id="sec-2-1-5"><span class="section-number-4">2.1.5</span> Circular Dependencies &nbsp;&nbsp;&nbsp;<span class="tag"><span class="fixnowrap">fixnowrap</span>&nbsp;<span class="slide">slide</span></span></h4>
+<div class="outline-text-4" id="text-2-1-5">
 
 
 
@@ -675,19 +694,6 @@ bar/foo   <span style="color: #ff7f24;">; </span><span style="color: #ff7f24;">S
 </pre>
 
 
-</div>
-</div>
-</div>
-
-</div>
-
-<div id="outline-container-2" class="outline-2">
-<h2 id="sec-2"><span class="section-number-2">2</span> Fin &nbsp;&nbsp;&nbsp;<span class="tag"><span class="title">title</span>&nbsp;<span class="slide">slide</span></span></h2>
-<div class="outline-text-2" id="text-2">
-
-
-
-
 
 
 <script type="text/javascript" src="org-html-slides.js"></script>
@@ -695,19 +701,21 @@ bar/foo   <span style="color: #ff7f24;">; </span><span style="color: #ff7f24;">S
 
 
 
+</div>
+</div>
 
 </div>
 
-<div id="outline-container-2-1" class="outline-3">
-<h3 id="sec-2-1"><span class="section-number-3">2.1</span> Notes</h3>
-<div class="outline-text-3" id="text-2-1">
+<div id="outline-container-2-2" class="outline-3">
+<h3 id="sec-2-2"><span class="section-number-3">2.2</span> Notes</h3>
+<div class="outline-text-3" id="text-2-2">
 
 <ul>
-<li id="sec-2-1-1">Should do more detail on the namespace mappings<br/>
+<li id="sec-2-2-1">Should do more detail on the namespace mappings<br/>
 </li>
 </ul>
 <ul>
-<li id="sec-2-1-2">What's the motivation for people with a bit more experience?<br/>
+<li id="sec-2-2-2">What's the motivation for people with a bit more experience?<br/>
 <ul>
 <li>Could talk more about how to use vars directly
 <ul>
@@ -730,7 +738,9 @@ bar/foo   <span style="color: #ff7f24;">; </span><span style="color: #ff7f24;">S
 
 <p>
 ((var ns name) blah)
-</p></li>
+</p>
+
+</li>
 </ul>
 </div>
 </div>
@@ -738,7 +748,7 @@ bar/foo   <span style="color: #ff7f24;">; </span><span style="color: #ff7f24;">S
 </div>
 
 <div id="postamble">
-<p class="date">Date: 2012-02-24 16:33:41 EST</p>
+<p class="date">Date: 2012-03-02 10:30:04 EST</p>
 <p class="author">Author: Craig Andera</p>
 <p class="creator">Org version 7.8.03 with Emacs version 23</p>
 <a href="http://validator.w3.org/check?uri=referer">Validate XHTML 1.0</a>
