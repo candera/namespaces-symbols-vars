@@ -65,7 +65,6 @@
 
 *** What's Going On Here?                                             :slide:
 **** A file gets loaded
-**** It is read
 **** It gets evaluated
 
 *** Loading                                                           :slide:
@@ -115,6 +114,7 @@
 **** A mapping from symbols to
 ***** Java classes
 ***** Vars
+***** Aliases
 
 # TODO: Show code at this point
 
@@ -164,11 +164,11 @@
 
 | Function           | Description                       |
 |--------------------+-----------------------------------|
-| \nbsp =ns-map=     | Map of all symbols in NS          |
+| \nbsp =ns-map=     | Map of all vars and classes in NS |
 | \nbsp =ns-publics= | Map of symbols to public vars     |
 | \nbsp =ns-imports= | Map of symbols to Java classes    |
-| \nbsp =ns-interns= | Map of symbols to vars in this NS |
-| \nbsp =ns-aliases= | Map of prefixes to namespaces     |
+| \nbsp =ns-interns= | Map of symbols to this NS's vars  |
+| \nbsp =ns-aliases= | Map of aliases to namespaces |
 | \nbsp =ns-refers=  | Map of symbols to referred vars   |
 
 *** Viewing Namespace Mappings                                        :slide:
@@ -196,7 +196,6 @@ file:SymbolResolution.png
 
 - When symbol evaluates to var, var evaluates to value
   - This can make the code faster
-  - Not true for =^dynamic= vars
 
 # Question: how do you tell the difference between a.b/c being a
 # namespace-qualified symbol referencing a var and a static method
@@ -250,6 +249,9 @@ file:SymbolResolution.png
              java.sql.Connection))
 #+end_src
 
+* Fin                                                           :title:slide:
+
+** Bonus Material                                               :title:slide:
 
 *** Using vars                                                        :slide:
 
@@ -311,9 +313,7 @@ file:SymbolResolution.png
   (defn c [] (one/a))
 #+end_src
 
-* Fin                                                           :title:slide:
-
-#+TAGS: slide(s)
+#+TAGS: slide(s) title
 
 #+STYLE: <link rel="stylesheet" type="text/css" href="common.css" />
 #+STYLE: <link rel="stylesheet" type="text/css" href="screen.css" media="screen" />
@@ -342,3 +342,5 @@ file:SymbolResolution.png
   - Crufting up a var to work around cyclic dependencies
 
 ((var ns name) blah)
+
+
