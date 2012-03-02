@@ -54,3 +54,6 @@ div.title h2, div.title h3, div.title h4 {
     padding: 9px 15px 18px;
 }
 
+table {
+    margin: auto
+}
