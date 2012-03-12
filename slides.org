@@ -253,9 +253,9 @@ file:SymbolResolution.png
 
 #+begin_src clojure
   (ns foo.bar
-    (:refer-clojure :exclude [ancestors printf])
-    (:require (clojure test test.junit))
-    (:use (my.lib this that))
+    (:refer-clojure :exclude [replace])
+    (:require clojure.test)
+    (:use [clojure.string :only (replace join)])
     (:import (java.util Date Timer Random)
              java.sql.Connection))
 #+end_src
