@@ -275,7 +275,7 @@ file:SymbolResolution.png
 *** Using vars                                                        :slide:
 #+begin_src clojure
   (ns hello-world
-    (:use compojure.core, ring.adapter.jetty))
+    (:use compojure.core ring.adapter.jetty))
 
   (defroutes main-routes ...)
 
