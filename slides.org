@@ -139,23 +139,6 @@
   (defn bar [x] (+ 2 x))
 #+end_src
 
-*** Referring Vars                                          :fixnowrap:slide:
-**** Vars from other namespaces can be mapped in
-**** =refer= does this
-**** Can pull them in selectively via =:only= or =:exclude=
-
-*** Referring Vars                                                    :slide:
-#+begin_src clojure
-  ;; Refer all public symbols
-  (refer 'net.cgrand.enlive-html)
-
-  ;; Refer only foo and bar
-  (refer '[blah.whatever :only (foo bar)])
-
-  ;; Refer everything except defroutes and GET
-  (refer '[compojure.core :except (defroutes GET)])
-#+end_src
-
 *** Viewing Namespace Mappings                                        :slide:
 
 # The \nbsp in the table entries is to prevent org-mode from treating
@@ -188,6 +171,35 @@
   ;;  ...}
 #+end_src
 
+
+*** Where Am I?                                                       :slide:
+**** Use =in-ns= to switch namespaces
+***** Creates a new one if necessary
+***** Mostly used from REPL
+**** =*ns*= var refers to current namespace
+**** =ns= macro a convenience for authoring source files
+
+*** Referring Vars                                          :fixnowrap:slide:
+**** Vars from other namespaces can be mapped in
+**** =refer= does this
+**** Can pull them in selectively via =:only= or =:exclude=
+
+*** Referring Vars                                                    :slide:
+#+begin_src clojure
+  (ns some.where)
+
+  ;; Refer all public vars
+  (refer 'net.cgrand.enlive-html)
+
+  ;; No namespace required!
+  (render ...)
+
+  ;; Refer only foo and bar
+  (refer '[blah.whatever :only (foo bar)])
+
+  ;; Refer everything except defroutes and GET
+  (refer '[compojure.core :except (defroutes GET)])
+#+end_src
 
 *** How are Symbols Evaluated?                              :fixnowrap:slide:
 
