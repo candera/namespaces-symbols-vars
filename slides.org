@@ -111,12 +111,11 @@
 #+end_src
 
 *** What is a Namespace?                                              :slide:
-**** A mapping from symbols to
+**** *Conceptually*: A way to disambiguate names
+**** *Concretely*: A mapping from symbols to
 ***** Java classes
-***** Vars
 ***** Aliases
-
-# TODO: Show code at this point
+***** Vars
 
 *** What is a Var?                                                    :slide:
 **** An association between a name and a value
