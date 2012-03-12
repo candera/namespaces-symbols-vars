@@ -302,8 +302,16 @@ file:SymbolResolution.png
   (ns one
     (:require two))
 
+  (defn a [] (two/b))
+#+end_src
+
+#+begin_src clojure
   (ns two
     (:require one))
+
+  (defn b [] "It worked!")
+
+  (defn c [] (one/a))
 #+end_src
 
 *** Circular Dependencies                                   :fixnowrap:slide:
