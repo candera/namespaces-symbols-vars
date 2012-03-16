@@ -7,7 +7,7 @@
 <meta http-equiv="Content-Type" content="text/html;charset=iso-8859-1"/>
 <meta name="title" content="Namespaces, Vars, and Symbols (Oh, My!)"/>
 <meta name="generator" content="Org-mode"/>
-<meta name="generated" content="2012-03-12 11:12:43 EDT"/>
+<meta name="generated" content="2012-03-16 07:06:13 PDT"/>
 <meta name="author" content="Craig Andera"/>
 <meta name="description" content=""/>
 <meta name="keywords" content=""/>
@@ -53,12 +53,12 @@
 <li><a href="#sec-1-1-13">1.1.13 Creating a Var</a></li>
 <li><a href="#sec-1-1-14">1.1.14 Viewing Namespace Mappings</a></li>
 <li><a href="#sec-1-1-15">1.1.15 Viewing Namespace Mappings</a></li>
-<li><a href="#sec-1-1-16">1.1.16 Where Am I?</a></li>
+<li><a href="#sec-1-1-16">1.1.16 Referring Vars</a></li>
 <li><a href="#sec-1-1-17">1.1.17 Referring Vars</a></li>
-<li><a href="#sec-1-1-18">1.1.18 Referring Vars</a></li>
-<li><a href="#sec-1-1-19">1.1.19 How are Symbols Evaluated?</a></li>
-<li><a href="#sec-1-1-20">1.1.20 The Code Again</a></li>
-<li><a href="#sec-1-1-21">1.1.21 <code>ns</code></a></li>
+<li><a href="#sec-1-1-18">1.1.18 Where Am I?</a></li>
+<li><a href="#sec-1-1-19">1.1.19 <code>ns</code></a></li>
+<li><a href="#sec-1-1-20">1.1.20 How are Symbols Evaluated?</a></li>
+<li><a href="#sec-1-1-21">1.1.21 The Code Again</a></li>
 </ul></li>
 </ul>
 </li>
@@ -294,7 +294,7 @@
 </li>
 </ul>
 <ul>
-<li id="sec-1-1-10-2">With an optional namespace<br/>
+<li id="sec-1-1-10-2">With an optional namespace <i>string</i><br/>
 </li>
 </ul>
 <ul>
@@ -304,7 +304,7 @@
 
 
 <pre class="src src-clojure">foo       <span style="color: #ff7f24;">; </span><span style="color: #ff7f24;">Unqualified symbol</span>
-bar/foo   <span style="color: #ff7f24;">; </span><span style="color: #ff7f24;">Symbol with namespace</span>
+bar/foo   <span style="color: #ff7f24;">; </span><span style="color: #ff7f24;">Symbol with namespace string</span>
 </pre>
 
 
@@ -452,27 +452,19 @@ bar/foo   <span style="color: #ff7f24;">; </span><span style="color: #ff7f24;">S
 </div>
 
 <div id="outline-container-1-1-16" class="outline-4">
-<h4 id="sec-1-1-16"><span class="section-number-4">1.1.16</span> Where Am I? &nbsp;&nbsp;&nbsp;<span class="tag"><span class="slide">slide</span></span></h4>
+<h4 id="sec-1-1-16"><span class="section-number-4">1.1.16</span> Referring Vars &nbsp;&nbsp;&nbsp;<span class="tag"><span class="fixnowrap">fixnowrap</span>&nbsp;<span class="slide">slide</span></span></h4>
 <div class="outline-text-4" id="text-1-1-16">
 
 <ul>
-<li id="sec-1-1-16-1">Use <code>in-ns</code> to switch namespaces<br/>
-<ul>
-<li id="sec-1-1-16-1-1">Creates a new one if necessary<br/>
+<li id="sec-1-1-16-1">Vars from other namespaces can be mapped in<br/>
 </li>
 </ul>
 <ul>
-<li id="sec-1-1-16-1-2">Mostly used from REPL<br/>
-</li>
-</ul>
-</li>
-</ul>
-<ul>
-<li id="sec-1-1-16-2"><code>*ns*</code> var refers to current namespace<br/>
+<li id="sec-1-1-16-2"><code>refer</code> does this<br/>
 </li>
 </ul>
 <ul>
-<li id="sec-1-1-16-3"><code>ns</code> macro a convenience for authoring source files<br/>
+<li id="sec-1-1-16-3">Can pull them in selectively via <code>:only</code> or <code>:exclude</code><br/>
 
 </li>
 </ul>
@@ -481,29 +473,8 @@ bar/foo   <span style="color: #ff7f24;">; </span><span style="color: #ff7f24;">S
 </div>
 
 <div id="outline-container-1-1-17" class="outline-4">
-<h4 id="sec-1-1-17"><span class="section-number-4">1.1.17</span> Referring Vars &nbsp;&nbsp;&nbsp;<span class="tag"><span class="fixnowrap">fixnowrap</span>&nbsp;<span class="slide">slide</span></span></h4>
+<h4 id="sec-1-1-17"><span class="section-number-4">1.1.17</span> Referring Vars &nbsp;&nbsp;&nbsp;<span class="tag"><span class="slide">slide</span></span></h4>
 <div class="outline-text-4" id="text-1-1-17">
-
-<ul>
-<li id="sec-1-1-17-1">Vars from other namespaces can be mapped in<br/>
-</li>
-</ul>
-<ul>
-<li id="sec-1-1-17-2"><code>refer</code> does this<br/>
-</li>
-</ul>
-<ul>
-<li id="sec-1-1-17-3">Can pull them in selectively via <code>:only</code> or <code>:exclude</code><br/>
-
-</li>
-</ul>
-</div>
-
-</div>
-
-<div id="outline-container-1-1-18" class="outline-4">
-<h4 id="sec-1-1-18"><span class="section-number-4">1.1.18</span> Referring Vars &nbsp;&nbsp;&nbsp;<span class="tag"><span class="slide">slide</span></span></h4>
-<div class="outline-text-4" id="text-1-1-18">
 
 
 
@@ -528,9 +499,60 @@ bar/foo   <span style="color: #ff7f24;">; </span><span style="color: #ff7f24;">S
 
 </div>
 
+<div id="outline-container-1-1-18" class="outline-4">
+<h4 id="sec-1-1-18"><span class="section-number-4">1.1.18</span> Where Am I? &nbsp;&nbsp;&nbsp;<span class="tag"><span class="slide">slide</span></span></h4>
+<div class="outline-text-4" id="text-1-1-18">
+
+<ul>
+<li id="sec-1-1-18-1">Use <code>in-ns</code> to switch namespaces<br/>
+<ul>
+<li id="sec-1-1-18-1-1">Creates a new one if necessary<br/>
+</li>
+</ul>
+<ul>
+<li id="sec-1-1-18-1-2">Mostly used from REPL<br/>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li id="sec-1-1-18-2"><code>*ns*</code> var refers to current namespace<br/>
+</li>
+</ul>
+<ul>
+<li id="sec-1-1-18-3"><code>ns</code> macro a convenience for authoring source files<br/>
+
+</li>
+</ul>
+</div>
+
+</div>
+
 <div id="outline-container-1-1-19" class="outline-4">
-<h4 id="sec-1-1-19"><span class="section-number-4">1.1.19</span> How are Symbols Evaluated? &nbsp;&nbsp;&nbsp;<span class="tag"><span class="fixnowrap">fixnowrap</span>&nbsp;<span class="slide">slide</span></span></h4>
+<h4 id="sec-1-1-19"><span class="section-number-4">1.1.19</span> <code>ns</code> &nbsp;&nbsp;&nbsp;<span class="tag"><span class="slide">slide</span></span></h4>
 <div class="outline-text-4" id="text-1-1-19">
+
+
+
+
+
+<pre class="src src-clojure">(<span style="color: #b0c4de;">ns</span> foo.bar
+  (<span style="color: #7fffd4;">:refer-clojure</span> <span style="color: #7fffd4;">:exclude</span> [replace])
+  (<span style="color: #7fffd4;">:require</span> clojure.test)
+  (<span style="color: #7fffd4;">:use</span> [clojure.string <span style="color: #7fffd4;">:only</span> (<span style="color: #eedd82;">replace</span> join)]
+        [clojure.repl <span style="color: #7fffd4;">:rename</span> {dir ls}])
+  (<span style="color: #7fffd4;">:import</span> (java.util <span style="color: #b0c4de;">Date</span> <span style="color: #b0c4de;">Timer</span> <span style="color: #b0c4de;">Random</span>)
+           <span style="color: #b0c4de;">java.sql.Connection</span>))
+</pre>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-1-1-20" class="outline-4">
+<h4 id="sec-1-1-20"><span class="section-number-4">1.1.20</span> How are Symbols Evaluated? &nbsp;&nbsp;&nbsp;<span class="tag"><span class="fixnowrap">fixnowrap</span>&nbsp;<span class="slide">slide</span></span></h4>
+<div class="outline-text-4" id="text-1-1-20">
 
 
 <p>
@@ -554,9 +576,9 @@ bar/foo   <span style="color: #ff7f24;">; </span><span style="color: #ff7f24;">S
 
 </div>
 
-<div id="outline-container-1-1-20" class="outline-4">
-<h4 id="sec-1-1-20"><span class="section-number-4">1.1.20</span> The Code Again &nbsp;&nbsp;&nbsp;<span class="tag"><span class="slide">slide</span></span></h4>
-<div class="outline-text-4" id="text-1-1-20">
+<div id="outline-container-1-1-21" class="outline-4">
+<h4 id="sec-1-1-21"><span class="section-number-4">1.1.21</span> The Code Again &nbsp;&nbsp;&nbsp;<span class="tag"><span class="slide">slide</span></span></h4>
+<div class="outline-text-4" id="text-1-1-21">
 
 
 
@@ -568,27 +590,6 @@ bar/foo   <span style="color: #ff7f24;">; </span><span style="color: #ff7f24;">S
 
 (<span style="color: #00ffff;">defn</span> <span style="color: #87cefa;">-main</span> [&amp; args]
   (<span style="color: #eedd82;">println</span> <span style="color: #ffa07a;">"hello"</span> (str/<span style="color: #98fb98;">join</span> <span style="color: #ffa07a;">" and "</span> args)))
-</pre>
-
-
-</div>
-
-</div>
-
-<div id="outline-container-1-1-21" class="outline-4">
-<h4 id="sec-1-1-21"><span class="section-number-4">1.1.21</span> <code>ns</code> &nbsp;&nbsp;&nbsp;<span class="tag"><span class="slide">slide</span></span></h4>
-<div class="outline-text-4" id="text-1-1-21">
-
-
-
-
-
-<pre class="src src-clojure">(<span style="color: #b0c4de;">ns</span> foo.bar
-  (<span style="color: #7fffd4;">:refer-clojure</span> <span style="color: #7fffd4;">:exclude</span> [replace])
-  (<span style="color: #7fffd4;">:require</span> clojure.test)
-  (<span style="color: #7fffd4;">:use</span> [clojure.string <span style="color: #7fffd4;">:only</span> (<span style="color: #eedd82;">replace</span> join)])
-  (<span style="color: #7fffd4;">:import</span> (java.util <span style="color: #b0c4de;">Date</span> <span style="color: #b0c4de;">Timer</span> <span style="color: #b0c4de;">Random</span>)
-           <span style="color: #b0c4de;">java.sql.Connection</span>))
 </pre>
 
 
@@ -795,7 +796,7 @@ bar/foo   <span style="color: #ff7f24;">; </span><span style="color: #ff7f24;">S
 </div>
 
 <div id="postamble">
-<p class="date">Date: 2012-03-12 11:12:43 EDT</p>
+<p class="date">Date: 2012-03-16 07:06:13 PDT</p>
 <p class="author">Author: Craig Andera</p>
 <p class="creator">Org version 7.8.03 with Emacs version 23</p>
 <a href="http://validator.w3.org/check?uri=referer">Validate XHTML 1.0</a>

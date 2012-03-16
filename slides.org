@@ -102,12 +102,12 @@
 
 *** What is a Symbol?                                                 :slide:
 **** A name
-**** With an optional namespace
+**** With an optional namespace /string/
 **** Has no value
 
 #+begin_src clojure
   foo       ; Unqualified symbol
-  bar/foo   ; Symbol with namespace
+  bar/foo   ; Symbol with namespace string
 #+end_src
 
 *** What is a Namespace?                                              :slide:
@@ -172,13 +172,6 @@
 #+end_src
 
 
-*** Where Am I?                                                       :slide:
-**** Use =in-ns= to switch namespaces
-***** Creates a new one if necessary
-***** Mostly used from REPL
-**** =*ns*= var refers to current namespace
-**** =ns= macro a convenience for authoring source files
-
 *** Referring Vars                                          :fixnowrap:slide:
 **** Vars from other namespaces can be mapped in
 **** =refer= does this
@@ -199,6 +192,25 @@
 
   ;; Refer everything except defroutes and GET
   (refer '[compojure.core :except (defroutes GET)])
+#+end_src
+
+*** Where Am I?                                                       :slide:
+**** Use =in-ns= to switch namespaces
+***** Creates a new one if necessary
+***** Mostly used from REPL
+**** =*ns*= var refers to current namespace
+**** =ns= macro a convenience for authoring source files
+
+*** =ns=                                                              :slide:
+
+#+begin_src clojure
+  (ns foo.bar
+    (:refer-clojure :exclude [replace])
+    (:require clojure.test)
+    (:use [clojure.string :only (replace join)]
+          [clojure.repl :rename {dir ls}])
+    (:import (java.util Date Timer Random)
+             java.sql.Connection))
 #+end_src
 
 *** How are Symbols Evaluated?                              :fixnowrap:slide:
@@ -247,17 +259,6 @@ file:SymbolResolution.png
 
   (defn -main [& args]
     (println "hello" (str/join " and " args)))
-#+end_src
-
-*** =ns=                                                              :slide:
-
-#+begin_src clojure
-  (ns foo.bar
-    (:refer-clojure :exclude [replace])
-    (:require clojure.test)
-    (:use [clojure.string :only (replace join)])
-    (:import (java.util Date Timer Random)
-             java.sql.Connection))
 #+end_src
 
 * Fin                                                           :title:slide:
