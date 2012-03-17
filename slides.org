@@ -221,7 +221,7 @@ does, too.
   (refer '[blah.whatever :only (foo bar)])
 
   ;; Refer everything except defroutes and GET
-  (refer '[compojure.core :except (defroutes GET)])
+  (refer '[compojure.core :exclude (defroutes GET)])
 #+end_src
 
 *** Where Am I?                                                       :slide:
