@@ -38,6 +38,36 @@
 # around to the evaluation rules for symbols. Then we come back to the
 # code again and we're done.
 
+
+** COMMENT Delivery notes
+*** ClojureWest 2012
+
+I think this was really well-received. People seemed to really need to
+hear this stuff, and to be able to absorb what I was saying. I got a
+sense that people were going to be more effective in Clojure after
+watching this talk.
+
+The area where I got the most questions was the slide with the =ns=
+macro, I suspect because this is where people get beat up the most.
+People seemed especially confused by the differences in syntax between
+the function forms and the =ns= form, like having to quote or not. It
+would probably be worth mentioning how quoting prevents evaluation,
+and it fits in with the talk.
+
+One of the things I would consider changing about the talk would be to
+add coverage of =all-ns=. I think it would be especially instructive
+to run it before and after calling something like =(require 'foo)=
+more than once, to show how =require= loads a new namespace.
+
+Another thing I might do would be to add a slide that translates a
+fairly involved =ns= expression into an equivalent sequence of
+statements: =in-ns= followed by =refer-clojure= followed by =import=,
+etc. I think that would help people.
+
+Something I got wrong in the talk was saying that only the =ns= macro
+imports =java.lang.*=, and =in-ns= does not. Turns out that =in-ns=
+does, too.
+
 ** Slides
 *** But First, a Reaction to Rich's Keynote                     :slide:title:
 *** Holy Shit!                                                  :title:slide:
